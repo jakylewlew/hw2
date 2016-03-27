@@ -58,11 +58,11 @@ foo:
 line1:
 
 	
-	add r6,r0,r1
 	mov r1, #'\r'
 	str r1,	[r4]
 	mov r1, #'\n'
 	str r1,	[r4]
+	add r6,r0,r1
 	add r6,r6,#48
 	str r6, [r4]
 	b my_exit
