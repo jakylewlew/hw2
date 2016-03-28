@@ -52,20 +52,14 @@ _start:
 
 foo:
 	cmp r0,r1
-	beq line1
-	b foo
+	addne r0,r0,r1
+	movne pc, lr 
+	moveq r0,#0
+	mov pc, lr
 
-line1:
+
 
 	
-	add r6,r0,r1
-	mov r1, #'\r'
-	str r1,	[r4]
-	mov r1, #'\n'
-	str r1,	[r4]
-	add r6,r6,#48
-	str r6, [r4]
-	b my_exit
 	
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
