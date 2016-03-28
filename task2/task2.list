@@ -6,190 +6,195 @@ Disassembly of section .text:
 
 00010000 <_start>:
    10000:	e3a0d601 	mov	sp, #1048576	; 0x100000
-   10004:	e59f423c 	ldr	r4, [pc, #572]	; 10248 <print10_helper_exit+0x8>
-   10008:	eb000054 	bl	10160 <get_int>
+   10004:	e59f4248 	ldr	r4, [pc, #584]	; 10254 <print10_helper_exit+0x8>
+   10008:	eb000057 	bl	1016c <get_int>
    1000c:	e1a05000 	mov	r5, r0
-   10010:	eb000052 	bl	10160 <get_int>
+   10010:	eb000055 	bl	1016c <get_int>
    10014:	e1a06000 	mov	r6, r0
    10018:	e1a00005 	mov	r0, r5
    1001c:	e1a01006 	mov	r1, r6
    10020:	eb000001 	bl	1002c <foo>
-   10024:	eb00006b 	bl	101d8 <print10>
-   10028:	ea00001c 	b	100a0 <my_exit>
+   10024:	eb00006e 	bl	101e4 <print10>
+   10028:	ea00001f 	b	100ac <my_exit>
 
 0001002c <foo>:
-   1002c:	e3a03018 	mov	r3, #24
-   10030:	e3a0401b 	mov	r4, #27
-   10034:	e3a05014 	mov	r5, #20
-   10038:	e3a06000 	mov	r6, #0
-   1003c:	e3a07002 	mov	r7, #2
-   10040:	e1a08001 	mov	r8, r1
-   10044:	eb000011 	bl	10090 <multiplyb>
-   10048:	eb000001 	bl	10054 <loop>
-   1004c:	e1a00006 	mov	r0, r6
-   10050:	e1a0f00e 	mov	pc, lr
+   1002c:	e3a05014 	mov	r5, #20
+   10030:	e3a06000 	mov	r6, #0
+   10034:	e3a07002 	mov	r7, #2
+   10038:	e1a08001 	mov	r8, r1
+   1003c:	e24dd004 	sub	sp, sp, #4
+   10040:	e58de004 	str	lr, [sp, #4]
+   10044:	eb000013 	bl	10098 <multiplyb>
+   10048:	eb000002 	bl	10058 <loop>
+   1004c:	e59de004 	ldr	lr, [sp, #4]
+   10050:	e1a00006 	mov	r0, r6
+   10054:	e1a0f00e 	mov	pc, lr
 
-00010054 <loop>:
-   10054:	e3550018 	cmp	r5, #24
-   10058:	02866014 	addeq	r6, r6, #20
-   1005c:	02855001 	addeq	r5, r5, #1
-   10060:	0afffffb 	beq	10054 <loop>
-   10064:	e355001b 	cmp	r5, #27
-   10068:	0a000005 	beq	10084 <multiply2>
-   1006c:	e0866000 	add	r6, r6, r0
-   10070:	e0866008 	add	r6, r6, r8
+00010058 <loop>:
+   10058:	e3550018 	cmp	r5, #24
+   1005c:	0a00000a 	beq	1008c <equal24>
+   10060:	e355001b 	cmp	r5, #27
+   10064:	0a000005 	beq	10080 <multiply2>
+   10068:	e355001e 	cmp	r5, #30
+   1006c:	e0866008 	add	r6, r6, r8
+   10070:	e0866000 	add	r6, r6, r0
    10074:	e2855001 	add	r5, r5, #1
-   10078:	e355001e 	cmp	r5, #30
-   1007c:	01a0f00e 	moveq	pc, lr
-   10080:	eafffff3 	b	10054 <loop>
+   10078:	01a0f00e 	moveq	pc, lr
+   1007c:	eafffff5 	b	10058 <loop>
 
-00010084 <multiply2>:
-   10084:	e0866006 	add	r6, r6, r6
-   10088:	e2855001 	add	r5, r5, #1
-   1008c:	eafffff0 	b	10054 <loop>
+00010080 <multiply2>:
+   10080:	e0866006 	add	r6, r6, r6
+   10084:	e2855001 	add	r5, r5, #1
+   10088:	eafffff2 	b	10058 <loop>
 
-00010090 <multiplyb>:
-   10090:	e3570003 	cmp	r7, #3
-   10094:	e0888001 	add	r8, r8, r1
-   10098:	01a0f00e 	moveq	pc, lr
-   1009c:	e2877001 	add	r7, r7, #1
+0001008c <equal24>:
+   1008c:	e2866014 	add	r6, r6, #20
+   10090:	e2855001 	add	r5, r5, #1
+   10094:	eaffffef 	b	10058 <loop>
 
-000100a0 <my_exit>:
-   100a0:	e3a0100d 	mov	r1, #13
-   100a4:	e5841000 	str	r1, [r4]
-   100a8:	e3a0100a 	mov	r1, #10
-   100ac:	e5841000 	str	r1, [r4]
-   100b0:	e3a01045 	mov	r1, #69	; 0x45
-   100b4:	e5841000 	str	r1, [r4]
-   100b8:	e3a0104e 	mov	r1, #78	; 0x4e
-   100bc:	e5841000 	str	r1, [r4]
-   100c0:	e3a01044 	mov	r1, #68	; 0x44
-   100c4:	e5841000 	str	r1, [r4]
+00010098 <multiplyb>:
+   10098:	e3570003 	cmp	r7, #3
+   1009c:	e0888001 	add	r8, r8, r1
+   100a0:	01a0f00e 	moveq	pc, lr
+   100a4:	e2877001 	add	r7, r7, #1
+   100a8:	eafffffa 	b	10098 <multiplyb>
 
-000100c8 <the_end>:
-   100c8:	eafffffe 	b	100c8 <the_end>
+000100ac <my_exit>:
+   100ac:	e3a0100d 	mov	r1, #13
+   100b0:	e5841000 	str	r1, [r4]
+   100b4:	e3a0100a 	mov	r1, #10
+   100b8:	e5841000 	str	r1, [r4]
+   100bc:	e3a01045 	mov	r1, #69	; 0x45
+   100c0:	e5841000 	str	r1, [r4]
+   100c4:	e3a0104e 	mov	r1, #78	; 0x4e
+   100c8:	e5841000 	str	r1, [r4]
+   100cc:	e3a01044 	mov	r1, #68	; 0x44
+   100d0:	e5841000 	str	r1, [r4]
 
-000100cc <div>:
-   100cc:	e92d41fc 	push	{r2, r3, r4, r5, r6, r7, r8, lr}
+000100d4 <the_end>:
+   100d4:	eafffffe 	b	100d4 <the_end>
 
-000100d0 <div_main>:
-   100d0:	e3a04001 	mov	r4, #1
-   100d4:	e3e05000 	mvn	r5, #0
-   100d8:	e3510000 	cmp	r1, #0
-   100dc:	03a03000 	moveq	r3, #0
-   100e0:	0a000019 	beq	1014c <div_exit>
-   100e4:	b0060594 	mullt	r6, r4, r5
-   100e8:	b1a04006 	movlt	r4, r6
-   100ec:	b0060591 	mullt	r6, r1, r5
-   100f0:	b1a01006 	movlt	r1, r6
-   100f4:	e3500000 	cmp	r0, #0
-   100f8:	b0060594 	mullt	r6, r4, r5
-   100fc:	b1a04006 	movlt	r4, r6
-   10100:	b0060590 	mullt	r6, r0, r5
-   10104:	b1a00006 	movlt	r0, r6
-   10108:	e1a07000 	mov	r7, r0
-   1010c:	e1a08001 	mov	r8, r1
-   10110:	e3a03000 	mov	r3, #0
-   10114:	e1a02001 	mov	r2, r1
+000100d8 <div>:
+   100d8:	e92d41fc 	push	{r2, r3, r4, r5, r6, r7, r8, lr}
 
-00010118 <div_counter>:
-   10118:	e1520000 	cmp	r2, r0
-   1011c:	c1a020a2 	lsrgt	r2, r2, #1
-   10120:	aa000001 	bge	1012c <div_loop>
-   10124:	e1a02082 	lsl	r2, r2, #1
-   10128:	eafffffa 	b	10118 <div_counter>
+000100dc <div_main>:
+   100dc:	e3a04001 	mov	r4, #1
+   100e0:	e3e05000 	mvn	r5, #0
+   100e4:	e3510000 	cmp	r1, #0
+   100e8:	03a03000 	moveq	r3, #0
+   100ec:	0a000019 	beq	10158 <div_exit>
+   100f0:	b0060594 	mullt	r6, r4, r5
+   100f4:	b1a04006 	movlt	r4, r6
+   100f8:	b0060591 	mullt	r6, r1, r5
+   100fc:	b1a01006 	movlt	r1, r6
+   10100:	e3500000 	cmp	r0, #0
+   10104:	b0060594 	mullt	r6, r4, r5
+   10108:	b1a04006 	movlt	r4, r6
+   1010c:	b0060590 	mullt	r6, r0, r5
+   10110:	b1a00006 	movlt	r0, r6
+   10114:	e1a07000 	mov	r7, r0
+   10118:	e1a08001 	mov	r8, r1
+   1011c:	e3a03000 	mov	r3, #0
+   10120:	e1a02001 	mov	r2, r1
 
-0001012c <div_loop>:
-   1012c:	e1520001 	cmp	r2, r1
-   10130:	ba000005 	blt	1014c <div_exit>
-   10134:	e1a03083 	lsl	r3, r3, #1
-   10138:	e1500002 	cmp	r0, r2
-   1013c:	a0400002 	subge	r0, r0, r2
-   10140:	a2833001 	addge	r3, r3, #1
-   10144:	e1a020a2 	lsr	r2, r2, #1
-   10148:	eafffff7 	b	1012c <div_loop>
+00010124 <div_counter>:
+   10124:	e1520000 	cmp	r2, r0
+   10128:	c1a020a2 	lsrgt	r2, r2, #1
+   1012c:	aa000001 	bge	10138 <div_loop>
+   10130:	e1a02082 	lsl	r2, r2, #1
+   10134:	eafffffa 	b	10124 <div_counter>
 
-0001014c <div_exit>:
-   1014c:	e0000493 	mul	r0, r3, r4
-   10150:	e0060893 	mul	r6, r3, r8
-   10154:	e0471006 	sub	r1, r7, r6
-   10158:	e8bd41fc 	pop	{r2, r3, r4, r5, r6, r7, r8, lr}
-   1015c:	e12fff1e 	bx	lr
+00010138 <div_loop>:
+   10138:	e1520001 	cmp	r2, r1
+   1013c:	ba000005 	blt	10158 <div_exit>
+   10140:	e1a03083 	lsl	r3, r3, #1
+   10144:	e1500002 	cmp	r0, r2
+   10148:	a0400002 	subge	r0, r0, r2
+   1014c:	a2833001 	addge	r3, r3, #1
+   10150:	e1a020a2 	lsr	r2, r2, #1
+   10154:	eafffff7 	b	10138 <div_loop>
 
-00010160 <get_int>:
-   10160:	e92d4070 	push	{r4, r5, r6, lr}
-   10164:	e59f40dc 	ldr	r4, [pc, #220]	; 10248 <print10_helper_exit+0x8>
-   10168:	e3a05000 	mov	r5, #0
-   1016c:	e3a0600a 	mov	r6, #10
+00010158 <div_exit>:
+   10158:	e0000493 	mul	r0, r3, r4
+   1015c:	e0060893 	mul	r6, r3, r8
+   10160:	e0471006 	sub	r1, r7, r6
+   10164:	e8bd41fc 	pop	{r2, r3, r4, r5, r6, r7, r8, lr}
+   10168:	e12fff1e 	bx	lr
 
-00010170 <get_int_loop>:
-   10170:	eb00000e 	bl	101b0 <get_char>
-   10174:	e3500030 	cmp	r0, #48	; 0x30
-   10178:	ba000005 	blt	10194 <get_int_exit>
-   1017c:	e3500039 	cmp	r0, #57	; 0x39
-   10180:	ca000003 	bgt	10194 <get_int_exit>
-   10184:	e2400030 	sub	r0, r0, #48	; 0x30
-   10188:	e0050596 	mul	r5, r6, r5
-   1018c:	e0855000 	add	r5, r5, r0
-   10190:	eafffff6 	b	10170 <get_int_loop>
+0001016c <get_int>:
+   1016c:	e92d4070 	push	{r4, r5, r6, lr}
+   10170:	e59f40dc 	ldr	r4, [pc, #220]	; 10254 <print10_helper_exit+0x8>
+   10174:	e3a05000 	mov	r5, #0
+   10178:	e3a0600a 	mov	r6, #10
 
-00010194 <get_int_exit>:
-   10194:	e1a00005 	mov	r0, r5
-   10198:	e3a0500d 	mov	r5, #13
-   1019c:	e5845000 	str	r5, [r4]
-   101a0:	e3a0500a 	mov	r5, #10
-   101a4:	e5845000 	str	r5, [r4]
-   101a8:	e8bd4070 	pop	{r4, r5, r6, lr}
-   101ac:	e12fff1e 	bx	lr
+0001017c <get_int_loop>:
+   1017c:	eb00000e 	bl	101bc <get_char>
+   10180:	e3500030 	cmp	r0, #48	; 0x30
+   10184:	ba000005 	blt	101a0 <get_int_exit>
+   10188:	e3500039 	cmp	r0, #57	; 0x39
+   1018c:	ca000003 	bgt	101a0 <get_int_exit>
+   10190:	e2400030 	sub	r0, r0, #48	; 0x30
+   10194:	e0050596 	mul	r5, r6, r5
+   10198:	e0855000 	add	r5, r5, r0
+   1019c:	eafffff6 	b	1017c <get_int_loop>
 
-000101b0 <get_char>:
-   101b0:	e92d401c 	push	{r2, r3, r4, lr}
-   101b4:	e59f408c 	ldr	r4, [pc, #140]	; 10248 <print10_helper_exit+0x8>
+000101a0 <get_int_exit>:
+   101a0:	e1a00005 	mov	r0, r5
+   101a4:	e3a0500d 	mov	r5, #13
+   101a8:	e5845000 	str	r5, [r4]
+   101ac:	e3a0500a 	mov	r5, #10
+   101b0:	e5845000 	str	r5, [r4]
+   101b4:	e8bd4070 	pop	{r4, r5, r6, lr}
+   101b8:	e12fff1e 	bx	lr
 
-000101b8 <get_char_wait>:
-   101b8:	e5942018 	ldr	r2, [r4, #24]
-   101bc:	e2023010 	and	r3, r2, #16
-   101c0:	e3530000 	cmp	r3, #0
-   101c4:	1afffffb 	bne	101b8 <get_char_wait>
-   101c8:	e5940000 	ldr	r0, [r4]
-   101cc:	e5840000 	str	r0, [r4]
-   101d0:	e8bd401c 	pop	{r2, r3, r4, lr}
-   101d4:	e12fff1e 	bx	lr
+000101bc <get_char>:
+   101bc:	e92d401c 	push	{r2, r3, r4, lr}
+   101c0:	e59f408c 	ldr	r4, [pc, #140]	; 10254 <print10_helper_exit+0x8>
 
-000101d8 <print10>:
-   101d8:	e92d40f3 	push	{r0, r1, r4, r5, r6, r7, lr}
-   101dc:	e59f4064 	ldr	r4, [pc, #100]	; 10248 <print10_helper_exit+0x8>
-   101e0:	e1a05000 	mov	r5, r0
-   101e4:	e3550000 	cmp	r5, #0
-   101e8:	b3a0602d 	movlt	r6, #45	; 0x2d
-   101ec:	b5846000 	strlt	r6, [r4]
-   101f0:	b3e07000 	mvnlt	r7, #0
-   101f4:	b0000795 	mullt	r0, r5, r7
-   101f8:	eb000005 	bl	10214 <print10_helper>
-   101fc:	e3a0500d 	mov	r5, #13
-   10200:	e5845000 	str	r5, [r4]
-   10204:	e3a0500a 	mov	r5, #10
-   10208:	e5845000 	str	r5, [r4]
-   1020c:	e8bd40f3 	pop	{r0, r1, r4, r5, r6, r7, lr}
-   10210:	e12fff1e 	bx	lr
+000101c4 <get_char_wait>:
+   101c4:	e5942018 	ldr	r2, [r4, #24]
+   101c8:	e2023010 	and	r3, r2, #16
+   101cc:	e3530000 	cmp	r3, #0
+   101d0:	1afffffb 	bne	101c4 <get_char_wait>
+   101d4:	e5940000 	ldr	r0, [r4]
+   101d8:	e5840000 	str	r0, [r4]
+   101dc:	e8bd401c 	pop	{r2, r3, r4, lr}
+   101e0:	e12fff1e 	bx	lr
 
-00010214 <print10_helper>:
-   10214:	e92d40f3 	push	{r0, r1, r4, r5, r6, r7, lr}
-   10218:	e59f4028 	ldr	r4, [pc, #40]	; 10248 <print10_helper_exit+0x8>
-   1021c:	e350000a 	cmp	r0, #10
-   10220:	b2806030 	addlt	r6, r0, #48	; 0x30
-   10224:	b5846000 	strlt	r6, [r4]
-   10228:	ba000004 	blt	10240 <print10_helper_exit>
-   1022c:	e3a0100a 	mov	r1, #10
-   10230:	ebffffa5 	bl	100cc <div>
-   10234:	ebfffff6 	bl	10214 <print10_helper>
-   10238:	e2816030 	add	r6, r1, #48	; 0x30
-   1023c:	e5846000 	str	r6, [r4]
+000101e4 <print10>:
+   101e4:	e92d40f3 	push	{r0, r1, r4, r5, r6, r7, lr}
+   101e8:	e59f4064 	ldr	r4, [pc, #100]	; 10254 <print10_helper_exit+0x8>
+   101ec:	e1a05000 	mov	r5, r0
+   101f0:	e3550000 	cmp	r5, #0
+   101f4:	b3a0602d 	movlt	r6, #45	; 0x2d
+   101f8:	b5846000 	strlt	r6, [r4]
+   101fc:	b3e07000 	mvnlt	r7, #0
+   10200:	b0000795 	mullt	r0, r5, r7
+   10204:	eb000005 	bl	10220 <print10_helper>
+   10208:	e3a0500d 	mov	r5, #13
+   1020c:	e5845000 	str	r5, [r4]
+   10210:	e3a0500a 	mov	r5, #10
+   10214:	e5845000 	str	r5, [r4]
+   10218:	e8bd40f3 	pop	{r0, r1, r4, r5, r6, r7, lr}
+   1021c:	e12fff1e 	bx	lr
 
-00010240 <print10_helper_exit>:
-   10240:	e8bd40f3 	pop	{r0, r1, r4, r5, r6, r7, lr}
-   10244:	e12fff1e 	bx	lr
-   10248:	101f1000 	andsne	r1, pc, r0
+00010220 <print10_helper>:
+   10220:	e92d40f3 	push	{r0, r1, r4, r5, r6, r7, lr}
+   10224:	e59f4028 	ldr	r4, [pc, #40]	; 10254 <print10_helper_exit+0x8>
+   10228:	e350000a 	cmp	r0, #10
+   1022c:	b2806030 	addlt	r6, r0, #48	; 0x30
+   10230:	b5846000 	strlt	r6, [r4]
+   10234:	ba000004 	blt	1024c <print10_helper_exit>
+   10238:	e3a0100a 	mov	r1, #10
+   1023c:	ebffffa5 	bl	100d8 <div>
+   10240:	ebfffff6 	bl	10220 <print10_helper>
+   10244:	e2816030 	add	r6, r1, #48	; 0x30
+   10248:	e5846000 	str	r6, [r4]
+
+0001024c <print10_helper_exit>:
+   1024c:	e8bd40f3 	pop	{r0, r1, r4, r5, r6, r7, lr}
+   10250:	e12fff1e 	bx	lr
+   10254:	101f1000 	andsne	r1, pc, r0
 
 Disassembly of section .ARM.attributes:
 
@@ -205,14 +210,14 @@ Disassembly of section .ARM.attributes:
 Disassembly of section .debug_line:
 
 00000000 <.debug_line>:
-   0:	000000ce 	andeq	r0, r0, lr, asr #1
+   0:	000000d1 	ldrdeq	r0, [r0], -r1
    4:	001e0002 	andseq	r0, lr, r2
    8:	01020000 	mrseq	r0, (UNDEF: 2)
    c:	000d0efb 	strdeq	r0, [sp], -fp
   10:	01010101 	tsteq	r1, r1, lsl #2
   14:	01000000 	mrseq	r0, (UNDEF: 0)
   18:	00010000 	andeq	r0, r1, r0
-  1c:	6b736174 	blvs	1cd85f4 <print10_helper_exit+0x1cc83b4>
+  1c:	6b736174 	blvs	1cd85f4 <print10_helper_exit+0x1cc83a8>
   20:	00732e32 	rsbseq	r2, r3, r2, lsr lr
   24:	00000000 	andeq	r0, r0, r0
   28:	00020500 	andeq	r0, r2, r0, lsl #10
@@ -222,42 +227,43 @@ Disassembly of section .debug_line:
   38:	3131312f 	teqcc	r1, pc, lsr #2
   3c:	2f2f2f35 	svccs	0x002f2f35
   40:	2f2f2f2f 	svccs	0x002f2f2f
-  44:	2f332f2f 	svccs	0x00332f2f
+  44:	332f2f2f 			; <UNDEFINED> instruction: 0x332f2f2f
   48:	2f2f2f2f 	svccs	0x002f2f2f
   4c:	2f2f2f2f 	svccs	0x002f2f2f
-  50:	2f342f2f 	svccs	0x00342f2f
-  54:	2f2f352f 	svccs	0x002f352f
-  58:	2e0e032f 	cdpcs	3, 0, cr0, cr14, cr15, {1}
-  5c:	2f2f2f2f 	svccs	0x002f2f2f
+  50:	2f2f342f 	svccs	0x002f342f
+  54:	332f2f32 			; <UNDEFINED> instruction: 0x332f2f32
+  58:	2f2f2f2f 	svccs	0x002f2f2f
+  5c:	2f2e0d03 	svccs	0x002e0d03
   60:	2f2f2f2f 	svccs	0x002f2f2f
-  64:	1303312f 	movwne	r3, #12591	; 0x312f
-  68:	302f342e 	eorcc	r3, pc, lr, lsr #8
-  6c:	2f2f2f2f 	svccs	0x002f2f2f
-  70:	2f302f2f 	svccs	0x00302f2f
-  74:	302f2f2f 	eorcc	r2, pc, pc, lsr #30
-  78:	322f302f 	eorcc	r3, pc, #47	; 0x2f
-  7c:	2f2f2f2f 	svccs	0x002f2f2f
-  80:	2f302f31 	svccs	0x00302f31
-  84:	2f302f2f 	svccs	0x00302f2f
-  88:	312f2f31 			; <UNDEFINED> instruction: 0x312f2f31
-  8c:	2e0a032f 	cdpcs	3, 0, cr0, cr10, cr15, {1}
-  90:	312f2f31 			; <UNDEFINED> instruction: 0x312f2f31
-  94:	2f2f2f2f 	svccs	0x002f2f2f
-  98:	302f2f30 	eorcc	r2, pc, r0, lsr pc	; <UNPREDICTABLE>
-  9c:	2f2f2f31 	svccs	0x002f2f31
-  a0:	342f312f 	strtcc	r3, [pc], #-303	; a8 <TXFF+0x88>
-  a4:	2f2f3131 	svccs	0x002f3131
-  a8:	312f302f 			; <UNDEFINED> instruction: 0x312f302f
-  ac:	3231342f 	eorscc	r3, r1, #788529152	; 0x2f000000
-  b0:	2f2f2f2f 	svccs	0x002f2f2f
-  b4:	2f31302f 	svccs	0x0031302f
-  b8:	2f312f2f 	svccs	0x00312f2f
-  bc:	2f323134 	svccs	0x00323134
-  c0:	2f302f2f 	svccs	0x00302f2f
-  c4:	322f2f2f 	eorcc	r2, pc, #47, 30	; 0xbc
-  c8:	7ddd0330 	ldclvc	3, cr0, [sp, #192]	; 0xc0
-  cc:	0002022e 	andeq	r0, r2, lr, lsr #4
-  d0:	Address 0x000000d0 is out of bounds.
+  64:	2f2f2f2f 	svccs	0x002f2f2f
+  68:	2e130331 	mrccs	3, 0, r0, cr3, cr1, {1}
+  6c:	2f302f34 	svccs	0x00302f34
+  70:	2f2f2f2f 	svccs	0x002f2f2f
+  74:	2f2f302f 	svccs	0x002f302f
+  78:	2f302f2f 	svccs	0x00302f2f
+  7c:	2f322f30 	svccs	0x00322f30
+  80:	312f2f2f 			; <UNDEFINED> instruction: 0x312f2f2f
+  84:	2f2f302f 	svccs	0x002f302f
+  88:	312f302f 			; <UNDEFINED> instruction: 0x312f302f
+  8c:	2f312f2f 	svccs	0x00312f2f
+  90:	312e0a03 			; <UNDEFINED> instruction: 0x312e0a03
+  94:	2f312f2f 	svccs	0x00312f2f
+  98:	302f2f2f 	eorcc	r2, pc, pc, lsr #30
+  9c:	31302f2f 	teqcc	r0, pc, lsr #30
+  a0:	2f2f2f2f 	svccs	0x002f2f2f
+  a4:	31342f31 	teqcc	r4, r1, lsr pc
+  a8:	2f2f2f31 	svccs	0x002f2f31
+  ac:	2f312f30 	svccs	0x00312f30
+  b0:	2f323134 	svccs	0x00323134
+  b4:	2f2f2f2f 	svccs	0x002f2f2f
+  b8:	2f2f3130 	svccs	0x002f3130
+  bc:	342f312f 	strtcc	r3, [pc], #-303	; c4 <TXFF+0xa4>
+  c0:	2f2f3231 	svccs	0x002f3231
+  c4:	2f2f302f 	svccs	0x002f302f
+  c8:	30322f2f 	eorscc	r2, r2, pc, lsr #30
+  cc:	2e7dda03 	vaddcs.f32	s27, s26, s6
+  d0:	01000202 	tsteq	r0, r2, lsl #4
+  d4:	Address 0x000000d4 is out of bounds.
 
 
 Disassembly of section .debug_info:
@@ -268,8 +274,8 @@ Disassembly of section .debug_info:
    8:	01040000 	mrseq	r0, (UNDEF: 4)
    c:	00000000 	andeq	r0, r0, r0
   10:	00010000 	andeq	r0, r1, r0
-  14:	0001024c 	andeq	r0, r1, ip, asr #4
-  18:	6b736174 	blvs	1cd85f0 <print10_helper_exit+0x1cc83b0>
+  14:	00010258 	andeq	r0, r1, r8, asr r2
+  18:	6b736174 	blvs	1cd85f0 <print10_helper_exit+0x1cc83a4>
   1c:	00732e32 	rsbseq	r2, r3, r2, lsr lr
   20:	6d6f682f 	stclvs	8, cr6, [pc, #-188]!	; ffffff6c <IO_ADDRESS+0xefe0ef6c>
   24:	616a2f65 	cmnvs	sl, r5, ror #30
@@ -291,7 +297,7 @@ Disassembly of section .debug_abbrev:
 00000000 <.debug_abbrev>:
    0:	10001101 	andne	r1, r0, r1, lsl #2
    4:	12011106 	andne	r1, r1, #-2147483647	; 0x80000001
-   8:	1b080301 	blne	200c14 <print10_helper_exit+0x1f09d4>
+   8:	1b080301 	blne	200c14 <print10_helper_exit+0x1f09c8>
    c:	13082508 	movwne	r2, #34056	; 0x8508
   10:	00000005 	andeq	r0, r0, r5
 
@@ -303,5 +309,5 @@ Disassembly of section .debug_aranges:
    8:	00040000 	andeq	r0, r4, r0
    c:	00000000 	andeq	r0, r0, r0
   10:	00010000 	andeq	r0, r1, r0
-  14:	0000024c 	andeq	r0, r0, ip, asr #4
+  14:	00000258 	andeq	r0, r0, r8, asr r2
 	...
