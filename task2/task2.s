@@ -1,5 +1,4 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@
+
 @ Program part 0: initial declarations
 @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -51,6 +50,55 @@ _start:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 foo:
+	mov r3,#24	@loads comp for functions
+	mov r4,#27
+	mov r5,#20 	@ i stored in r5
+	mov r6,#0 	@ r6 is the result
+	mov r7,#2	@ my multiplier	
+	mov r8,r1	@ r8 will store b *1
+	bl multiplyb	@multiply b *3
+	bl loop
+	mov r0,r6
+	mov pc,lr	@retruns to lr
+
+
+	
+loop:	
+	cmp r5,#24	@when i == 24
+	addeq r6,r6,#20
+	addeq r5,r5,#1	@increments i
+	beq loop
+	cmp r5,#27	
+	beq multiply2
+	add r6,r6,r0   @adds value of a
+	add r6,r6,r8   @adds value of 3*b
+	add r5,r5,#1 	@increments i by 1
+	cmp r5,#30
+	moveq pc, lr
+	b loop
+
+
+multiply2:
+	
+			@6 twice to multiply by two
+	add r6,r6,r6
+	add r5,r5,#1 	@increments i
+	b loop	
+	
+	
+	
+multiplyb:  	
+	  		@gets the multiplied value for  the result
+			@ STORES b*3 in r8
+	cmp r7,#3
+	add r8,r8,r1	@1st time added = r1*2; second r1*3
+	moveq pc, lr	@branch to lr
+	add r7,r7,#1 	@ adds 123
+
+
+
+	
+
 
 
 
