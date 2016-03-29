@@ -54,33 +54,33 @@ foo:
 	cmp r0,r1
 	movgt r0, #0	@if gt 
 	movgt pc,lr	@returns 0
-	str lr,[sp,#0]	@stores foo lr at top of stack
+	str lr,[sp]	@stores foo lr at top of stack
 	mov r3,#0	@sp index
 	mov r2,r0	@make r2 == r0
 	bl next		
-	ldr r4, [sp],#4]	@load r4 and r5 as comparisons for pop
-	ldr r5, [sp, r3  @r5 is the address of last first on stack	
+	ldr r8, [sp]	@load r4 and r5 as comparisons for pop
+	ldr r5, [sp, r3]  @r5 is the address of last first on stack	
 	mov r0,#0
 	bl popvalues 
-	ldr lr,[sp,#0]	@loads original link reg
+	ldr lr,[sp]	@loads original link reg
 	mov pc, lr
 	
 next:
 	
-	add r3,r3,#4	@increment stack
+	sub r3,r3,#4	@increment stack
 	streq r2,[sp,r3]@stores value of equal rel
 	strne r2,[sp,r3]@stores everything ne	
 	moveq r2,r1	@puts value of b in r2
- 	sub r2,r2,#1	@increments val r2 by one
+ 	add r2,r2,#1	@increments val r2 by one
 	moveq pc,lr	@returns to callee
 	cmp r2,r1	@cmp 
-	b next		@loop
-
-	cmp r4,r5
+	b next		@lo
+popvalues:
+	cmp r8,r5
 	ldr r6,[sp,r3]	@loads r6 with first item on stack]
-	add r0,r0,r6	@add value of item in stack
+	addne r0,r0,r6	@add value of item in stack
 	add r3,r3,#4	@inc stack
-	ldr r5, [sp],r3	@load r5 with new spi
+	ldr r5, [sp,r3] @load r5 with new spi
 	moveq pc,lr
 	b popvalues
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

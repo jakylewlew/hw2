@@ -25,15 +25,15 @@ Disassembly of section .text:
    1003c:	e3a03000 	mov	r3, #0
    10040:	e1a02000 	mov	r2, r0
    10044:	eb000005 	bl	10060 <next>
-   10048:	e49d4004 	pop	{r4}		; (ldr r4, [sp], #4)
-   1004c:	e69d5003 	ldr	r5, [sp], r3
+   10048:	e59d8000 	ldr	r8, [sp]
+   1004c:	e79d5003 	ldr	r5, [sp, r3]
    10050:	e3a00000 	mov	r0, #0
    10054:	eb000009 	bl	10080 <popvalues>
    10058:	e59de000 	ldr	lr, [sp]
    1005c:	e1a0f00e 	mov	pc, lr
 
 00010060 <next>:
-   10060:	e2833004 	add	r3, r3, #4
+   10060:	e2433004 	sub	r3, r3, #4
    10064:	078d2003 	streq	r2, [sp, r3]
    10068:	178d2003 	strne	r2, [sp, r3]
    1006c:	01a02001 	moveq	r2, r1
@@ -43,11 +43,11 @@ Disassembly of section .text:
    1007c:	eafffff7 	b	10060 <next>
 
 00010080 <popvalues>:
-   10080:	e1540005 	cmp	r4, r5
+   10080:	e1580005 	cmp	r8, r5
    10084:	e79d6003 	ldr	r6, [sp, r3]
-   10088:	e0800006 	add	r0, r0, r6
-   1008c:	e2433004 	sub	r3, r3, #4
-   10090:	e69d5003 	ldr	r5, [sp], r3
+   10088:	10800006 	addne	r0, r0, r6
+   1008c:	e2833004 	add	r3, r3, #4
+   10090:	e79d5003 	ldr	r5, [sp, r3]
    10094:	01a0f00e 	moveq	pc, lr
    10098:	eafffff8 	b	10080 <popvalues>
 
@@ -222,7 +222,7 @@ Disassembly of section .debug_line:
   44:	2f2f2f2f 	svccs	0x002f2f2f
   48:	2f2f322f 	svccs	0x002f322f
   4c:	2f2f2f2f 	svccs	0x002f2f2f
-  50:	2f2f312f 	svccs	0x002f312f
+  50:	2f2f302f 	svccs	0x002f302f
   54:	2f2f2f2f 	svccs	0x002f2f2f
   58:	2f2f2f34 	svccs	0x002f2f34
   5c:	2f2f2f2f 	svccs	0x002f2f2f
@@ -251,7 +251,7 @@ Disassembly of section .debug_line:
   b8:	3231342f 	eorscc	r3, r1, #788529152	; 0x2f000000
   bc:	302f2f2f 	eorcc	r2, pc, pc, lsr #30
   c0:	2f2f2f2f 	svccs	0x002f2f2f
-  c4:	f0033032 			; <UNDEFINED> instruction: 0xf0033032
+  c4:	f1033032 			; <UNDEFINED> instruction: 0xf1033032
   c8:	02022e7d 	andeq	r2, r2, #2000	; 0x7d0
   cc:	Address 0x00000000000000cc is out of bounds.
 
