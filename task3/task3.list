@@ -33,11 +33,11 @@ Disassembly of section .text:
 
 0001005c <next>:
    1005c:	01a02001 	moveq	r2, r1
-   10060:	e2433004 	sub	r3, r3, #4
+   10060:	e2833004 	add	r3, r3, #4
    10064:	078d2003 	streq	r2, [sp, r3]
    10068:	178d2003 	strne	r2, [sp, r3]
    1006c:	01a0f00e 	moveq	pc, lr
-   10070:	e1500001 	cmp	r0, r1
+   10070:	e1520001 	cmp	r2, r1
    10074:	e2822001 	add	r2, r2, #1
    10078:	eafffff7 	b	1005c <next>
 
@@ -46,7 +46,7 @@ Disassembly of section .text:
    10080:	01a0f00e 	moveq	pc, lr
    10084:	e79d6003 	ldr	r6, [sp, r3]
    10088:	e0800006 	add	r0, r0, r6
-   1008c:	e2833004 	add	r3, r3, #4
+   1008c:	e2433004 	sub	r3, r3, #4
    10090:	e79d5003 	ldr	r5, [sp, r3]
    10094:	eafffff8 	b	1007c <popvalues>
 
@@ -195,7 +195,7 @@ Disassembly of section .ARM.attributes:
    8:	01006962 	tsteq	r0, r2, ror #18
    c:	0000000b 	andeq	r0, r0, fp
   10:	01080206 	tsteq	r8, r6, lsl #4
-  14:	Address 0x00000014 is out of bounds.
+  14:	Address 0x0000000000000014 is out of bounds.
 
 
 Disassembly of section .debug_line:
@@ -214,7 +214,7 @@ Disassembly of section .debug_line:
   28:	00020500 	andeq	r0, r2, r0, lsl #10
   2c:	03000100 	movweq	r0, #256	; 0x100
   30:	33300117 	teqcc	r0, #-1073741819	; 0xc0000005
-  34:	312f2f2f 			; <UNDEFINED> instruction: 0x312f2f2f
+  34:	312f2f2f 	teqcc	pc, pc, lsr #30
   38:	3131312f 	teqcc	r1, pc, lsr #2
   3c:	2f2f2f35 	svccs	0x002f2f35
   40:	2f2f2f2f 	svccs	0x002f2f2f
@@ -234,15 +234,15 @@ Disassembly of section .debug_line:
   78:	2f2f2f2f 	svccs	0x002f2f2f
   7c:	2f302f31 	svccs	0x00302f31
   80:	2f302f2f 	svccs	0x00302f2f
-  84:	312f2f31 			; <UNDEFINED> instruction: 0x312f2f31
+  84:	312f2f31 	teqcc	pc, r1, lsr pc	; <UNPREDICTABLE>
   88:	2e0a032f 	cdpcs	3, 0, cr0, cr10, cr15, {1}
-  8c:	312f2f31 			; <UNDEFINED> instruction: 0x312f2f31
+  8c:	312f2f31 	teqcc	pc, r1, lsr pc	; <UNPREDICTABLE>
   90:	2f2f2f2f 	svccs	0x002f2f2f
   94:	302f2f30 	eorcc	r2, pc, r0, lsr pc	; <UNPREDICTABLE>
   98:	2f2f2f31 	svccs	0x002f2f31
   9c:	342f312f 	strtcc	r3, [pc], #-303	; a4 <TXFF+0x84>
   a0:	2f2f3131 	svccs	0x002f3131
-  a4:	312f302f 			; <UNDEFINED> instruction: 0x312f302f
+  a4:	312f302f 	teqcc	pc, pc, lsr #32
   a8:	3231342f 	eorscc	r3, r1, #788529152	; 0x2f000000
   ac:	2f2f2f2f 	svccs	0x002f2f2f
   b0:	2f31302f 	svccs	0x0031302f
@@ -252,13 +252,13 @@ Disassembly of section .debug_line:
   c0:	322f2f2f 	eorcc	r2, pc, #47, 30	; 0xbc
   c4:	7df10330 	ldclvc	3, cr0, [r1, #192]!	; 0xc0
   c8:	0002022e 	andeq	r0, r2, lr, lsr #4
-  cc:	Address 0x000000cc is out of bounds.
+  cc:	Address 0x00000000000000cc is out of bounds.
 
 
 Disassembly of section .debug_info:
 
 00000000 <.debug_info>:
-   0:	00000054 	andeq	r0, r0, r4, asr r0
+   0:	00000051 	andeq	r0, r0, r1, asr r0
    4:	00000002 	andeq	r0, r0, r2
    8:	01040000 	mrseq	r0, (UNDEF: 4)
    c:	00000000 	andeq	r0, r0, r0
@@ -269,17 +269,18 @@ Disassembly of section .debug_info:
   20:	6d6f682f 	stclvs	8, cr6, [pc, #-188]!	; ffffff6c <IO_ADDRESS+0xefe0ef6c>
   24:	616a2f65 	cmnvs	sl, r5, ror #30
   28:	2f626f63 	svccs	0x00626f63
-  2c:	75636f44 	strbvc	r6, [r3, #-3908]!	; 0xfffff0bc
-  30:	746e656d 	strbtvc	r6, [lr], #-1389	; 0xfffffa93
-  34:	69672f73 	stmdbvs	r7!, {r0, r1, r4, r5, r6, r8, r9, sl, fp, sp}^
-  38:	62756874 	rsbsvs	r6, r5, #116, 16	; 0x740000
-  3c:	3277682f 	rsbscc	r6, r7, #3080192	; 0x2f0000
+  2c:	75636f44 	strbvc	r6, [r3, #-3908]!	; 0xf44
+  30:	746e656d 	strbtvc	r6, [lr], #-1389	; 0x56d
+  34:	69472f73 	stmdbvs	r7, {r0, r1, r4, r5, r6, r8, r9, sl, fp, sp}^
+  38:	62754874 	rsbsvs	r4, r5, #116, 16	; 0x740000
+  3c:	3257482f 	subscc	r4, r7, #3080192	; 0x2f0000
   40:	7361742f 	cmnvc	r1, #788529152	; 0x2f000000
   44:	4700336b 	strmi	r3, [r0, -fp, ror #6]
-  48:	4120554e 			; <UNDEFINED> instruction: 0x4120554e
+  48:	4120554e 	teqmi	r0, lr, asr #10
   4c:	2e322053 	mrccs	0, 1, r2, cr2, cr3, {2}
-  50:	392e3532 	stmdbcc	lr!, {r1, r4, r5, r8, sl, ip, sp}
-  54:	80010030 	andhi	r0, r1, r0, lsr r0
+  50:	01003432 	tsteq	r0, r2, lsr r4
+  54:	Address 0x0000000000000054 is out of bounds.
+
 
 Disassembly of section .debug_abbrev:
 
