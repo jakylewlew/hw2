@@ -50,9 +50,30 @@ _start:
 @       Your code starts here      @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-foo:
-
-
+foo: 
+	add r2,r0,#3	@int c
+	mov r10, #5	@moves digit 5 to multiply
+	mul r3,r2,r10	@int d multipy into r3
+	add r4, r2,r3	@int e
+	mov r10,r3	@moves int d to r10 for mul
+	mul r5,r4,r3	@e*d = f
+	sub r6,r5,r2	@int g
+	push {r2-r6}
+	mov r7,#20	 @apply 20 byte to the stack for iteration	
+	b sum
+sum:
+	ldr r2,[sp,r7]
+	add r8,r8,r2
+	cmp r7,#0
+	subne r7,r7,#4	
+	beq final
+	b sum
+final:
+	add r8,r8,r0
+	add r8,r8,r1
+	mov r0,r8
+	mov pc,lr
+	
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @        Your code ends here       @
